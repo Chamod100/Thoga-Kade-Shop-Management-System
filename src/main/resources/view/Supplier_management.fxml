@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefWidth="900" prefHeight="600"
+            style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="controller.SupplierManagementController">
+
+    <children>
+        <Label text="🚚 Supplier Management" layoutX="40" layoutY="25"
+               style="-fx-text-fill: #f4f7fb; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+        <TableView fx:id="tblSupplier" layoutX="40" layoutY="80" prefWidth="820" prefHeight="300"
+                   style="-fx-background-color: #141d2c; -fx-border-color: #263248;">
+            <columns>
+                <TableColumn text="Supplier ID" prefWidth="100"/>
+                <TableColumn text="Name" prefWidth="150"/>
+                <TableColumn text="Company" prefWidth="150"/>
+                <TableColumn text="City" prefWidth="120"/>
+                <TableColumn text="Phone" prefWidth="120"/>
+                <TableColumn text="Email" prefWidth="180"/>
+            </columns>
+        </TableView>
+
+        <HBox layoutX="40" layoutY="420" spacing="10">
+            <TextField promptText="Supplier ID" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;"/>
+            <TextField promptText="Name" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;"/>
+            <TextField promptText="Company" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;"/>
+        </HBox>
+
+        <HBox layoutX="40" layoutY="470" spacing="10">
+            <TextField promptText="City" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;"/>
+            <TextField promptText="Phone" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;"/>
+            <TextField promptText="Email" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;"/>
+        </HBox>
+
+        <HBox layoutX="40" layoutY="530" spacing="15">
+            <Button text="Add" style="-fx-background-color: linear-gradient(#1f6fb3, #184e8a); -fx-text-fill: white;"/>
+            <Button text="Update" style="-fx-background-color: #1e88e5; -fx-text-fill: white;"/>
+            <Button text="Delete" style="-fx-background-color: #c53030; -fx-text-fill: white;"/>
+            <Button text="Clear" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: #aab9c9;"/>
+        </HBox>
+    </children>
+</AnchorPane>
