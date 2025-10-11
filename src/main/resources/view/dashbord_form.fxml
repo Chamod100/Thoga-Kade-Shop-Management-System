@@ -10,39 +10,35 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="520" prefWidth="900" style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="controller.DashbordFormController">
-
-    <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="55" spacing="15" style="-fx-background-color: #151f2f; -fx-padding: 0 25 0 25; -fx-border-color: #1f2c42; -fx-border-width: 0 0 1 0;">
-            <children>
-
-                <ImageView fitHeight="28" fitWidth="28" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="" />
-                    </image>
-                </ImageView>
-
-                <Label style="-fx-text-fill: #f4f7fb; -fx-font-size: 17px; -fx-font-weight: bold;" text="Thoga Kade Dashboard" />
-
-                <Pane HBox.hgrow="ALWAYS" />
-
-                <Button fx:id="btnCustomers" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Customers" />
-                <Button fx:id="btnItems" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Items" />
-                <Button fx:id="btnSuppliers" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Suppliers" />
-                <Button fx:id="btnEmployees" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Employees" />
-                <Button fx:id="btnLogout" style="-fx-background-color: linear-gradient(#b73232, #8b1e1e); -fx-text-fill: white; -fx-background-radius: 8; -fx-font-weight: bold;" text="Logout" />
-            </children>
-        </HBox>
-    </top>
+<BorderPane prefHeight="520.0" prefWidth="769.0" style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="controller.DashbordFormController">
 
     <center>
-        <AnchorPane fx:id="mainContent" prefHeight="465.0" prefWidth="862.0" style="-fx-background-color: linear-gradient(#0c131e, #101b2d);">
+        <AnchorPane fx:id="mainContent" prefHeight="520.0" prefWidth="837.0" style="-fx-background-color: linear-gradient(#0c131e, #101b2d);">
             <children>
-                <VBox alignment="CENTER" layoutX="250" layoutY="180" spacing="10">
+                <VBox alignment="CENTER" layoutX="191.0" layoutY="211.0" prefHeight="97.0" prefWidth="387.0" spacing="10">
                     <Label style="-fx-text-fill: #cdd9ec; -fx-font-size: 18;" text="Welcome to" />
                     <Label style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;" text="🛒 Thoga Kade System" />
                     <Label style="-fx-text-fill: #9fb0c8; -fx-font-size: 13;" text="Manage your customers, items, suppliers and employees efficiently!" wrapText="true" />
                 </VBox>
+              <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="770.0" spacing="15" style="-fx-background-color: #151f2f; -fx-padding: 0 25 0 25; -fx-border-color: #1f2c42; -fx-border-width: 0 0 1 0;">
+                  <children>
+      
+                      <ImageView fitHeight="28" fitWidth="28" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../image/shopping-cart.png" />
+                          </image>
+                      </ImageView>
+      
+                      <Label prefHeight="24.0" prefWidth="221.0" style="-fx-text-fill: #f4f7fb; -fx-font-size: 19px; -fx-font-weight: bold;" text="Thoga Kade Dashboard" />
+      
+                      <Pane HBox.hgrow="ALWAYS" />
+      
+                      <Button fx:id="btnCustomers" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Customers" />
+                      <Button fx:id="btnItems" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Items" />
+                      <Button fx:id="btnSuppliers" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Suppliers" />
+                      <Button fx:id="btnEmployees" style="-fx-background-color: transparent; -fx-text-fill: #d9e5ff; -fx-font-size: 13;" text="Employees" />
+                  </children>
+              </HBox>
             </children>
         </AnchorPane>
     </center>
