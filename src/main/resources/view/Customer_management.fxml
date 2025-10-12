@@ -12,12 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 
 <AnchorPane prefHeight="620" prefWidth="1004.0" style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="controller.CustomerManagementController">
-
     <children>
-        <!-- Heading -->
         <Label layoutX="21.0" layoutY="25.0" style="-fx-text-fill: #f4f7fb; -fx-font-size: 24px; -fx-font-weight: bold;" text="👥 Customer Management" />
 
-        <!-- Table -->
         <TableView fx:id="tblCustomer" layoutX="22.0" layoutY="80" prefHeight="280" prefWidth="960.0" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;">
             <columns>
                 <TableColumn prefWidth="81.60000228881836" text="Customer ID" />
@@ -32,7 +29,6 @@
             </columns>
         </TableView>
 
-        <!-- Input Fields Row 1 -->
         <HBox layoutX="40" layoutY="380" spacing="10">
             <TextField fx:id="txtCustID" promptText="Customer ID (e.g., C001)" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
             <ComboBox fx:id="cmbTitle" promptText="Title" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;">
@@ -50,20 +46,17 @@
             <TextField fx:id="txtDob" promptText="DOB (YYYY-MM-DD)" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
         </HBox>
 
-        <!-- Input Fields Row 2 -->
         <HBox layoutX="40" layoutY="430" spacing="10">
             <TextField fx:id="txtSalary" promptText="Salary" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
             <TextField fx:id="txtAddress" promptText="Address" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
             <TextField fx:id="txtCity" promptText="City" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
         </HBox>
 
-        <!-- Input Fields Row 3 -->
         <HBox layoutX="40" layoutY="480" spacing="10">
             <TextField fx:id="txtProvince" promptText="Province" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
             <TextField fx:id="txtPostalCode" promptText="Postal Code" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
         </HBox>
 
-        <!-- Buttons -->
         <HBox layoutX="40.0" layoutY="552.0" spacing="15">
             <Button fx:id="btnAdd" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #1e88e5; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Add" />
             <Button fx:id="btnUpdate" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #38b000; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Update" />
