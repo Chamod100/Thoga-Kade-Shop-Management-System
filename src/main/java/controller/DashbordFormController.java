@@ -1,30 +1,75 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class DashbordFormController {
-    public void addItem(ActionEvent actionEvent) {
+
+    @FXML
+    private Button btnCustomers;
+
+    @FXML
+    private Button btnEmployees;
+
+    @FXML
+    private Button btnItems;
+
+    @FXML
+    private Button btnSuppliers;
+
+    @FXML
+    private AnchorPane mainContent;
+
+    Stage stage = new Stage();
+    Stage stage1 = new Stage();
+    Stage stage2 = new Stage();
+    Stage stage3 = new Stage();
+
+    @FXML
+    void actionCustomers(ActionEvent event) {
+        try {
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/Customer_management.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage.show();
     }
 
-    public void updateItem(ActionEvent actionEvent) {
+    @FXML
+    void actionEmployees(ActionEvent event) {
+        try {
+            stage1.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/Employee_management.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage1.show();
     }
 
-    public void deleteItem(ActionEvent actionEvent) {
+    @FXML
+    void actionItems(ActionEvent event) {
+        try {
+            stage2.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/Item_management.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage2.show();
     }
 
-    public void clearItemFields(ActionEvent actionEvent) {
+    @FXML
+    void actionSuppliers(ActionEvent event) {
+        try {
+            stage3.setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/Supplier_management.fxml"))));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage3.show();
     }
 
-    public void addCustomer(ActionEvent actionEvent) {
-    }
-
-    public void updateCustomer(ActionEvent actionEvent) {
-    }
-
-    public void deleteCustomer(ActionEvent actionEvent) {
-    }
-
-    public void clearCustomerFields(ActionEvent actionEvent) {
-        
-    }
 }
