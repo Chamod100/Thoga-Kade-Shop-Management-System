@@ -15,21 +15,21 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="640.0" prefWidth="950" style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeManagementController">
+<AnchorPane prefHeight="640.0" prefWidth="992.0" style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeManagementController">
 
     <children>
         <Label layoutX="36.0" layoutY="25.0" style="-fx-text-fill: #f4f7fb; -fx-font-size: 22px; -fx-font-weight: bold;" text="👨‍💼 Employee Management" />
 
-        <TableView fx:id="tblEmployee" layoutX="40" layoutY="80" prefHeight="280" prefWidth="870" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;">
+        <TableView fx:id="tblEmployee" layoutX="40" layoutY="80" prefHeight="280" prefWidth="916.0" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;">
             <columns>
-                <TableColumn prefWidth="80" text="ID" />
-                <TableColumn prefWidth="150" text="Name" />
-                <TableColumn prefWidth="110" text="NIC" />
-                <TableColumn prefWidth="100" text="DOB" />
-                <TableColumn prefWidth="120" text="Position" />
-                <TableColumn prefWidth="100" text="Salary" />
-                <TableColumn prefWidth="100" text="Contact" />
-                <TableColumn prefWidth="150" text="Address" />
+                <TableColumn fx:id="colID" prefWidth="80" text="ID" />
+                <TableColumn fx:id="colName" prefWidth="150" text="Name" />
+                <TableColumn fx:id="colNic" prefWidth="110" text="NIC" />
+                <TableColumn fx:id="colDob" prefWidth="100" text="DOB" />
+                <TableColumn fx:id="colPosition" prefWidth="120" text="Position" />
+                <TableColumn fx:id="colSalary" prefWidth="100" text="Salary" />
+                <TableColumn fx:id="colContact" prefWidth="100" text="Contact" />
+                <TableColumn fx:id="colAddress" prefWidth="150" text="Address" />
                 <TableColumn prefWidth="100" text="Joined Date" />
                 <TableColumn prefWidth="80" text="Status" />
             </columns>
@@ -95,6 +95,6 @@
             <Button fx:id="btnDelete" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c53030; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Delete" />
             <Button fx:id="btnClear" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: white; -fx-border-radius: 6; -fx-font-weight: bold;" text="Clear" />
         </HBox>
-      <Button fx:id="btnReload" layoutX="835.0" layoutY="585.0" onAction="#actionReload" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Reload" />
+      <Button fx:id="btnReload" layoutX="881.0" layoutY="585.0" onAction="#actionReload" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Reload" />
     </children>
 </AnchorPane>
