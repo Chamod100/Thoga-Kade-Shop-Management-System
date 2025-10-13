@@ -15,17 +15,17 @@
 
         <TableView fx:id="tblItem" layoutX="40" layoutY="80" prefHeight="300" prefWidth="820" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;">
             <columns>
-                <TableColumn prefWidth="100" text="Item Code" />
-                <TableColumn prefWidth="203.20001220703125" text="Description" /> 
-                <TableColumn prefWidth="179.20004272460938" text="Category" />
-                <TableColumn prefWidth="144.79998779296875" text="Qty On Hand" />
-                <TableColumn prefWidth="191.99993896484375" text="Unit Price" />
+                <TableColumn fx:id="colItem" prefWidth="100" text="Item Code" />
+                <TableColumn fx:id="colDescription" prefWidth="203.20001220703125" text="Description" /> 
+                <TableColumn fx:id="colCategory" prefWidth="179.20004272460938" text="Category" />
+                <TableColumn fx:id="colQty" prefWidth="144.79998779296875" text="Qty On Hand" />
+                <TableColumn fx:id="colPrice" prefWidth="191.99993896484375" text="Unit Price" />
             </columns>
         </TableView>
 
         <HBox layoutX="40" layoutY="420" spacing="10">
-            <TextField fx:id="txtId" promptText="Item Code" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
-            <TextField fx:id="txtName" prefHeight="25.0" prefWidth="190.0" promptText="Description" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
+            <TextField fx:id="txtICode" promptText="Item Code" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
+            <TextField fx:id="txtDescription" prefHeight="25.0" prefWidth="190.0" promptText="Description" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
             <TextField fx:id="txtCategory" prefHeight="25.0" prefWidth="167.0" promptText="Category" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;" />
         </HBox>
 
@@ -40,5 +40,6 @@
             <Button fx:id="btnDelete" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c53030; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Delete" />
             <Button fx:id="btnClear" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: white; -fx-border-radius: 6; -fx-font-weight: bold;" text="Clear" />
         </HBox>
+      <Button fx:id="btnReload" layoutX="785.0" layoutY="525.0" onAction="#actionReload" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Reload" />
     </children>
 </AnchorPane>
