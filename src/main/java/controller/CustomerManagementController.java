@@ -104,16 +104,15 @@ public class CustomerManagementController implements Initializable {
 
 
     public void actionReload(ActionEvent actionEvent) {
-        colCid.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colCid"));
-        colTitle.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colTitle"));
-        colName.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colName"));
-        colDob.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colDob"));
-        colSalary.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colSalary"));
-        colAddress.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colAddress"));
-        colCity.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colCity"));
-        colProvince.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colProvince"));
-        ColPCode.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colPCode"));
-        tblCustomer.setItems(CustomerDTO);
+        txtCustID.setText("");
+        txtTitle.setText("");
+        txtName.setText("");
+        txtDob.setText("");
+        txtSalary.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
     }
 
     @Override
@@ -144,5 +143,85 @@ public class CustomerManagementController implements Initializable {
         });
 
 
+    }
+
+    public void actionAdd(ActionEvent actionEvent) {
+        String cid = txtCustID.getText();
+        String Title = txtTitle.getText();
+        String Name = txtName.getText();
+        String Dob = txtDob.getText();
+        String Salary = txtSalary.getText();
+        String Address = txtAddress.getText();
+        String City = txtCity.getText();
+        String Province = txtProvince.getText();
+        String PCode = txtPostalCode.getText();
+
+        CustomerDTO customerDTO = new CustomerDTO(cid,Title,Name,Dob,Salary,Address,City,Province,PCode);
+        CustomerDTO.add(customerDTO);
+
+        tblCustomer.refresh();
+
+        txtCustID.setText("");
+        txtTitle.setText("");
+        txtName.setText("");
+        txtDob.setText("");
+        txtSalary.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+    }
+
+    public void actionUpdate(ActionEvent actionEvent) {
+        CustomerDTO selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+
+        selectedItem.setColCid(txtCustID.getText());
+        selectedItem.setColTitle(txtTitle.getText());
+        selectedItem.setColName(txtName.getText());
+        selectedItem.setColDob(txtDob.getText());
+        selectedItem.setColSalary(txtSalary.getText());
+        selectedItem.setColAddress(txtAddress.getText());
+        selectedItem.setColCity(txtCity.getText());
+        selectedItem.setColProvince(txtProvince.getText());
+        selectedItem.setColPCode(txtPostalCode.getText());
+
+        tblCustomer.refresh();
+
+        txtCustID.setText("");
+        txtTitle.setText("");
+        txtName.setText("");
+        txtDob.setText("");
+        txtSalary.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+    }
+    public void actionDelete(ActionEvent actionEvent) {
+        CustomerDTO selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+        CustomerDTO.remove(selectedItem);
+        tblCustomer.refresh();
+
+        txtCustID.setText("");
+        txtTitle.setText("");
+        txtName.setText("");
+        txtDob.setText("");
+        txtSalary.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+    }
+
+    public void actionClear(ActionEvent actionEvent) {
+        txtCustID.setText("");
+        txtTitle.setText("");
+        txtName.setText("");
+        txtDob.setText("");
+        txtSalary.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
     }
 }

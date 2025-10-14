@@ -80,13 +80,11 @@ public class ItemManagementController implements Initializable {
 
     @FXML
     void actionReload(ActionEvent event) {
-        colItem.setCellValueFactory(new PropertyValueFactory<>("colItem"));
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("colDescription"));
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("colCategory"));
-        colQty.setCellValueFactory(new PropertyValueFactory<>("colQty"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("colPrice"));
-        tblItem.setItems(ItemDTO);
-
+        txtICode.setText("");
+        txtDescription.setText("");
+        txtCategory.setText("");
+        txtQty.setText("");
+        txtPrice.setText("");
     }
 
     @Override
@@ -108,5 +106,61 @@ public class ItemManagementController implements Initializable {
                     }
                 }
         );
+    }
+
+    public void actionAdd(ActionEvent actionEvent) {
+        String Item = txtICode.getText();
+        String Description = txtDescription.getText();
+        String Category = txtCategory.getText();
+        String Qty = txtQty.getText();
+        String Price = txtPrice.getText();
+
+        ItemDTO.add(new ItemDTO(Item,Description,Category,Qty,Price));
+        tblItem.setItems(ItemDTO);
+        tblItem.refresh();
+
+        txtICode.getText();
+        txtDescription.getText();
+        txtCategory.getText();
+        txtQty.getText();
+        txtPrice.getText();
+    }
+
+    public void actionUpdate(ActionEvent actionEvent) {
+        ItemDTO selectedItem = tblItem.getSelectionModel().getSelectedItem();
+
+            selectedItem.setColItem(txtICode.getText());
+            selectedItem.setColDescription(txtDescription.getText());
+            selectedItem.setColCategory(txtCategory.getText());
+            selectedItem.setColQty(txtQty.getText());
+            selectedItem.setColPrice(txtPrice.getText());
+
+            tblItem.refresh();
+
+            txtICode.setText("");
+            txtDescription.setText("");
+            txtCategory.setText("");
+            txtQty.setText("");
+            txtPrice.setText("");
+    }
+
+    public void actionDelete(ActionEvent actionEvent) {
+        ItemDTO selectedItem = tblItem.getSelectionModel().getSelectedItem();
+        ItemDTO.remove(selectedItem);
+        tblItem.refresh();
+
+        txtICode.setText("");
+        txtDescription.setText("");
+        txtCategory.setText("");
+        txtQty.setText("");
+        txtPrice.setText("");
+    }
+
+    public void actionClear(ActionEvent actionEvent) {
+        txtICode.setText("");
+        txtDescription.setText("");
+        txtCategory.setText("");
+        txtQty.setText("");
+        txtPrice.setText("");
     }
 }

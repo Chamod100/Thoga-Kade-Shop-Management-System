@@ -111,18 +111,16 @@ public class EmployeeManagementController implements Initializable {
 
     @FXML
     void actionReload(ActionEvent event) {
-        colID.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colID"));
-        colName.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colName"));
-        colNic.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colNic"));
-        colDob.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colDob"));
-        colPosition.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colPosition"));
-        colSalary.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colSalary"));
-        colContact.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colContract"));
-        colAddress.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colAddress"));
-        colJoinedDate.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colJoinedDate"));
-        colStatus.setCellValueFactory(new javafx.scene.control.cell.PropertyValueFactory<>("colStatus"));
-        tblEmployee.setItems(EmployeeDTO);
-
+        txtEmployeeId.setText("");
+        txtName.setText("");
+        txtNic.setText("");
+        dpDob.setValue(null);
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContact.setText("");
+        txtAddress.setText("");
+        dpJoinedDate.setValue(null);
+        txtStatus.setText("");
     }
 
     @Override
@@ -153,5 +151,92 @@ public class EmployeeManagementController implements Initializable {
                 txtStatus.setText(NewValue.getColStatus());
             }
         });
+    }
+
+    public void actionAdd(ActionEvent actionEvent) {
+        String ID = txtEmployeeId.getText();
+        String name = txtName.getText();
+        String nic = txtNic.getText();
+        String dob = String.valueOf(dpDob.getValue());
+        String position = txtPosition.getText();
+        String salary = txtSalary.getText();
+        String contact = txtContact.getText();
+        String address = txtAddress.getText();
+        String joinedDate = String.valueOf(dpJoinedDate.getValue());
+        String status = txtStatus.getText();
+
+        EmployeeDTO.add(new EmployeeDTO(ID, name, nic, dob, position, salary, contact, address, joinedDate, status));
+        tblEmployee.refresh();
+
+        txtEmployeeId.setText("");
+        txtName.setText("");
+        txtNic.setText("");
+        dpDob.setValue(null);
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContact.setText("");
+        txtAddress.setText("");
+        dpJoinedDate.setValue(null);
+        txtStatus.setText("");
+    }
+
+    public void actionUpdate(ActionEvent actionEvent) {
+        EmployeeDTO selectedItem = tblEmployee.getSelectionModel().getSelectedItem();
+
+        if (selectedItem != null) {
+
+            selectedItem.setColID(txtEmployeeId.getText());
+            selectedItem.setColName(txtName.getText());
+            selectedItem.setColNic(txtNic.getText());
+            selectedItem.setColDob(String.valueOf(dpDob.getValue()));
+            selectedItem.setColPosition(txtPosition.getText());
+            selectedItem.setColSalary(txtSalary.getText());
+            selectedItem.setColContract(txtContact.getText());
+            selectedItem.setColAddress(txtAddress.getText());
+            selectedItem.setColJoinedDate(String.valueOf(dpJoinedDate.getValue()));
+            selectedItem.setColStatus(txtStatus.getText());
+            tblEmployee.refresh();
+
+            txtEmployeeId.setText("");
+            txtName.setText("");
+            txtNic.setText("");
+            dpDob.setValue(null);
+            txtPosition.setText("");
+            txtSalary.setText("");
+            txtContact.setText("");
+            txtAddress.setText("");
+            dpJoinedDate.setValue(null);
+            txtStatus.setText("");
+        }
+    }
+
+    public void actionDelete(ActionEvent actionEvent) {
+        EmployeeDTO selectedItem = tblEmployee.getSelectionModel().getSelectedItem();
+        EmployeeDTO.remove(selectedItem);
+        tblEmployee.refresh();
+
+        txtEmployeeId.setText("");
+        txtName.setText("");
+        txtNic.setText("");
+        dpDob.setValue(null);
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContact.setText("");
+        txtAddress.setText("");
+        dpJoinedDate.setValue(null);
+        txtStatus.setText("");
+    }
+
+    public void actionClear(ActionEvent actionEvent) {
+        txtEmployeeId.setText("");
+        txtName.setText("");
+        txtNic.setText("");
+        dpDob.setValue(null);
+        txtPosition.setText("");
+        txtSalary.setText("");
+        txtContact.setText("");
+        txtAddress.setText("");
+        dpJoinedDate.setValue(null);
+        txtStatus.setText("");
     }
 }
