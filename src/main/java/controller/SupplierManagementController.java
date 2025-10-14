@@ -104,16 +104,15 @@ public class SupplierManagementController implements Initializable {
 
     @FXML
     void actionReload(ActionEvent event) {
-        colSupplierid.setCellValueFactory(new PropertyValueFactory<>("colSupplierId"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("colName"));
-        colCompany.setCellValueFactory(new PropertyValueFactory<>("colCompany"));
-        colAddress.setCellValueFactory(new PropertyValueFactory<>("colAddress"));
-        colCity.setCellValueFactory(new PropertyValueFactory<>("colCity"));
-        colProvince.setCellValueFactory(new PropertyValueFactory<>("colProvince"));
-        colPCode.setCellValueFactory(new PropertyValueFactory<>("colPCode"));
-        colPhone.setCellValueFactory(new PropertyValueFactory<>("colPhone"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("colEmail"));
-        tblSupplier.setItems(supplierDTOS);
+        txtSupplierId.setText("");
+        txtName.setText("");
+        txtCompany.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
     }
 
     @Override
@@ -142,5 +141,86 @@ public class SupplierManagementController implements Initializable {
                 txtEmail.setText(t1.getColEmail());
             }
         });
+    }
+
+    public void actionAdd(ActionEvent actionEvent) {
+        String SupplierId = txtSupplierId.getText();
+        String Name = txtName.getText();
+        String Company = txtCompany.getText();
+        String Address = txtAddress.getText();
+        String City = txtCity.getText();
+        String Province = txtProvince.getText();
+        String PostalCode = txtPostalCode.getText();
+        String Phone = txtPhone.getText();
+        String Email = txtEmail.getText();
+
+        SupplierDTO supplierDTO = new SupplierDTO(SupplierId,Name,Company,Address,City,Province,PostalCode,Phone,Email);
+        supplierDTOS.add(supplierDTO);
+        tblSupplier.refresh();
+
+        txtSupplierId.setText("");
+        txtName.setText("");
+        txtCompany.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+
+    }
+
+    public void actionUpdate(ActionEvent actionEvent) {
+        SupplierDTO selectedSupplier = tblSupplier.getSelectionModel().getSelectedItem();
+
+        selectedSupplier.setColSupplierId(txtSupplierId.getText());
+        selectedSupplier.setColName(txtName.getText());
+        selectedSupplier.setColCompany(txtCompany.getText());
+        selectedSupplier.setColAddress(txtAddress.getText());
+        selectedSupplier.setColCity(txtCity.getText());
+        selectedSupplier.setColProvince(txtProvince.getText());
+        selectedSupplier.setColPCode(txtPostalCode.getText());
+        selectedSupplier.setColPhone(txtPhone.getText());
+        selectedSupplier.setColEmail(txtEmail.getText());
+
+        tblSupplier.refresh();
+
+        txtSupplierId.setText("");
+        txtName.setText("");
+        txtCompany.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+    }
+
+    public void actionDelete(ActionEvent actionEvent) {
+        SupplierDTO selectedSupplier = tblSupplier.getSelectionModel().getSelectedItem();
+        supplierDTOS.remove(selectedSupplier);
+        tblSupplier.refresh();
+
+        txtSupplierId.setText("");
+        txtName.setText("");
+        txtCompany.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
+    }
+
+    public void actionClear(ActionEvent actionEvent) {
+        txtSupplierId.setText("");
+        txtName.setText("");
+        txtCompany.setText("");
+        txtAddress.setText("");
+        txtCity.setText("");
+        txtProvince.setText("");
+        txtPostalCode.setText("");
+        txtPhone.setText("");
+        txtEmail.setText("");
     }
 }

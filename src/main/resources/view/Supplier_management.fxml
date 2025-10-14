@@ -77,11 +77,11 @@
         </GridPane>
 
         <HBox layoutX="40.0" layoutY="573.0" spacing="15">
-            <Button fx:id="btnAdd" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #1e88e5; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Add" />
-            <Button fx:id="btnUpdate" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #38b000; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Update" />
-            <Button fx:id="btnDelete" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c53030; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Delete" />
-            <Button fx:id="btnClear" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: white; -fx-border-radius: 6; -fx-font-weight: bold;" text="Clear" />
+            <Button fx:id="btnAdd" onAction="#actionAdd" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #1e88e5; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Add" />
+            <Button fx:id="btnUpdate" onAction="#actionUpdate" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #38b000; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Update" />
+            <Button fx:id="btnDelete" onAction="#actionDelete" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c53030; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Delete" />
+            <Button fx:id="btnClear" onAction="#actionClear" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: white; -fx-border-radius: 6; -fx-font-weight: bold;" text="Clear" />
         </HBox>
-      <Button fx:id="btnReload" layoutX="835.0" layoutY="574.0" onAction="#actionReload" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Reload" />
+      <Button fx:id="btnReload" layoutX="1039.0" layoutY="574.0" onAction="#actionReload" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Reload" />
     </children>
 </AnchorPane>
