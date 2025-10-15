@@ -11,23 +11,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="628.0" prefWidth="950" style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/24.0.1" fx:controller="controller.SupplierManagementController">
+<AnchorPane prefHeight="628.0" prefWidth="1160.0" style="-fx-background-color: linear-gradient(#0a1018, #101b2d); -fx-font-family: 'Segoe UI';" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SupplierManagementController">
 
     <children>
 
         <Label layoutX="40" layoutY="25" style="-fx-text-fill: #f4f7fb; -fx-font-size: 22px; -fx-font-weight: bold;" text="🚚 Supplier Management" />
 
-        <TableView fx:id="tblSupplier" layoutX="40" layoutY="80" prefHeight="270" prefWidth="870" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;">
+        <TableView fx:id="tblSupplier" layoutX="40" layoutY="80" prefHeight="270" prefWidth="1074.0" style="-fx-background-color: #141d2c; -fx-border-color: #263248; -fx-text-fill: white;">
             <columns>
-                <TableColumn prefWidth="100" text="Supplier ID" />
-                <TableColumn prefWidth="130" text="Name" />
-                <TableColumn prefWidth="150" text="Company" />
-                <TableColumn prefWidth="150" text="Address" />
-                <TableColumn prefWidth="100" text="City" />
-                <TableColumn prefWidth="100" text="Province" />
-                <TableColumn prefWidth="90" text="Postal Code" />
-                <TableColumn prefWidth="100" text="Phone" />
-                <TableColumn prefWidth="150" text="Email" />
+                <TableColumn fx:id="colSupplierid" prefWidth="87.99999618530273" text="Supplier ID" />
+                <TableColumn fx:id="colName" prefWidth="127.19996643066406" text="Name" />
+                <TableColumn fx:id="colCompany" prefWidth="147.199951171875" text="Company" />
+                <TableColumn fx:id="colAddress" prefWidth="157.5999755859375" text="Address" />
+                <TableColumn fx:id="colCity" prefWidth="112.800048828125" text="City" />
+                <TableColumn fx:id="colProvince" prefWidth="100" text="Province" />
+                <TableColumn fx:id="colPCode" prefWidth="90" text="Postal Code" />
+                <TableColumn fx:id="colPhone" prefWidth="103.20001220703125" text="Phone" />
+                <TableColumn fx:id="colEmail" prefWidth="147.199951171875" text="Email" />
             </columns>
         </TableView>
 
@@ -77,10 +77,11 @@
         </GridPane>
 
         <HBox layoutX="40.0" layoutY="573.0" spacing="15">
-            <Button fx:id="btnAdd" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #1e88e5; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Add" />
-            <Button fx:id="btnUpdate" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #38b000; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Update" />
-            <Button fx:id="btnDelete" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c53030; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Delete" />
-            <Button fx:id="btnClear" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: white; -fx-border-radius: 6; -fx-font-weight: bold;" text="Clear" />
+            <Button fx:id="btnAdd" onAction="#actionAdd" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #1e88e5; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Add" />
+            <Button fx:id="btnUpdate" onAction="#actionUpdate" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #38b000; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Update" />
+            <Button fx:id="btnDelete" onAction="#actionDelete" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c53030; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Delete" />
+            <Button fx:id="btnClear" onAction="#actionClear" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: white; -fx-border-radius: 6; -fx-font-weight: bold;" text="Clear" />
         </HBox>
+      <Button fx:id="btnReload" layoutX="1039.0" layoutY="574.0" onAction="#actionReload" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Reload" />
     </children>
 </AnchorPane>
