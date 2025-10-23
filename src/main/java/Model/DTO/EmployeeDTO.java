@@ -14,7 +14,7 @@ public class EmployeeDTO {
     private String colDob;
     private String colPosition;
     private String colSalary;
-    private String colContract;
+    private String colContact;
     private String colAddress;
     private String colJoinedDate;
     private String colStatus;
