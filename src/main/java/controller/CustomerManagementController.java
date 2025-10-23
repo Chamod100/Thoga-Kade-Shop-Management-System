@@ -6,114 +6,27 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class CustomerManagementController implements Initializable {
 
-    ObservableList<CustomerDTO> CustomerDTO = FXCollections.observableArrayList(
-            new CustomerDTO("C001", "Mr.", "Danapala", "1981-02-06", "40000", "No.20 Walana", "Panadura", "Western", "12500"),
-            new CustomerDTO("C002", "Ms.", "Samanthi", "1990-05-12", "55000", "No.15 Galle", "Galle", "Southern", "8000"),
-            new CustomerDTO("C003", "Mrs.", "Kumari", "1985-11-23", "72000", "No.5 Kandy", "Kandy"," Central", "20000"),
-            new CustomerDTO("C004", "Miss.", "Niluka", "1978-07-30", "95000", "No.8 Jaffna", "Jaffna", "Northern", "15000"),
-            new CustomerDTO("C005", "Mr.", "Perera", "1992-03-15", "48000", "No.12 Matara", "Matara", "Southern", "9000"),
-            new CustomerDTO("C006", "Ms.", "Lakshmi", "1988-09-09", "67000", "No.3 Negombo", "Negombo", "Western", "11000"),
-            new CustomerDTO("C007", "Mrs.", "Fernando", "1975-12-01", "83000", "No.18 Trincomalee", "Trincomalee", "Eastern", "13000"),
-            new CustomerDTO("C008", "Miss.", "Jayathilaka", "1983-06-21", "76000", "No.7 Anuradhapura", "Anuradhapura", "North Central", "14000"),
-            new CustomerDTO("C009", "Mr.", "Silva", "1995-04-10", "52000", "No.22 Kurunegala", "Kurunegala", "North Western", "10000"),
-            new CustomerDTO("C010", "Ms.", "Wijesinghe", "1980-08-18", "88000", "No.9 Badulla", "Badulla", "Uva", "16000")
-    );
-
     @FXML
     private TableColumn<?, ?> ColPCode;
-
     @FXML
-    private Button btnAdd;
-
+    private Button btnAdd, btnClear, btnDelete, btnReload, btnUpdate;
     @FXML
-    private Button btnClear;
-
-    @FXML
-    private Button btnDelete;
-
-    @FXML
-    private Button btnReload;
-
-    @FXML
-    private Button btnUpdate;
-
-    @FXML
-    private TableColumn<?, ?> colAddress;
-
-    @FXML
-    private TableColumn<?, ?> colCid;
-
-    @FXML
-    private TableColumn<?, ?> colCity;
-
-    @FXML
-    private TableColumn<?, ?> colDob;
-
-    @FXML
-    private TableColumn<?, ?> colName;
-
-    @FXML
-    private TableColumn<?, ?> colProvince;
-
-    @FXML
-    private TableColumn<?, ?> colSalary;
-
-    @FXML
-    private TableColumn<?, ?> colTitle;
-
+    private TableColumn<?, ?> colAddress, colCid, colCity, colDob, colName, colProvince, colSalary, colTitle;
     @FXML
     private TableView<CustomerDTO> tblCustomer;
-
     @FXML
-    private TextField txtAddress;
+    private TextField txtAddress, txtCity, txtCustID, txtDob, txtName, txtPostalCode, txtProvince, txtSalary, txtTitle;
 
-    @FXML
-    private TextField txtCity;
-
-    @FXML
-    private TextField txtCustID;
-
-    @FXML
-    private TextField txtDob;
-
-    @FXML
-    private TextField txtName;
-
-    @FXML
-    private TextField txtPostalCode;
-
-    @FXML
-    private TextField txtProvince;
-
-    @FXML
-    private TextField txtSalary;
-
-    @FXML
-    private TextField txtTitle;
-
-
-    public void actionReload(ActionEvent actionEvent) {
-        txtCustID.setText("");
-        txtTitle.setText("");
-        txtName.setText("");
-        txtDob.setText("");
-        txtSalary.setText("");
-        txtAddress.setText("");
-        txtCity.setText("");
-        txtProvince.setText("");
-        txtPostalCode.setText("");
-    }
+    private ObservableList<CustomerDTO> customerList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -126,9 +39,11 @@ public class CustomerManagementController implements Initializable {
         colCity.setCellValueFactory(new PropertyValueFactory<>("colCity"));
         colProvince.setCellValueFactory(new PropertyValueFactory<>("colProvince"));
         ColPCode.setCellValueFactory(new PropertyValueFactory<>("colPCode"));
-        tblCustomer.setItems(CustomerDTO);
 
-        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+        tblCustomer.setItems(customerList);
+        loadCustomers();
+
+        tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 txtCustID.setText(newValue.getColCid());
                 txtTitle.setText(newValue.getColTitle());
@@ -141,87 +56,126 @@ public class CustomerManagementController implements Initializable {
                 txtPostalCode.setText(newValue.getColPCode());
             }
         });
-
-
     }
 
-    public void actionAdd(ActionEvent actionEvent) {
-        String cid = txtCustID.getText();
-        String Title = txtTitle.getText();
-        String Name = txtName.getText();
-        String Dob = txtDob.getText();
-        String Salary = txtSalary.getText();
-        String Address = txtAddress.getText();
-        String City = txtCity.getText();
-        String Province = txtProvince.getText();
-        String PCode = txtPostalCode.getText();
+    private void loadCustomers() {
+        ObservableList<CustomerDTO> CustomerDTOS = FXCollections.observableArrayList();
 
-        CustomerDTO customerDTO = new CustomerDTO(cid,Title,Name,Dob,Salary,Address,City,Province,PCode);
-        CustomerDTO.add(customerDTO);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
 
-        tblCustomer.refresh();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        txtCustID.setText("");
-        txtTitle.setText("");
-        txtName.setText("");
-        txtDob.setText("");
-        txtSalary.setText("");
-        txtAddress.setText("");
-        txtCity.setText("");
-        txtProvince.setText("");
-        txtPostalCode.setText("");
+            while (resultSet.next()) {
+                CustomerDTO customerinfoDTO = new CustomerDTO(
+                        resultSet.getString("CustomerID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Name"),
+                        resultSet.getString("DateOfBirth"),
+                        resultSet.getString("Salary"),
+                        resultSet.getString("Address"),
+                        resultSet.getString("City"),
+                        resultSet.getString("Province"),
+                        resultSet.getString("PostalCode")
+                );
+                CustomerDTOS.add(customerinfoDTO);
+            }
+            tblCustomer.setItems(CustomerDTOS);
+            connection.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void actionUpdate(ActionEvent actionEvent) {
-        CustomerDTO selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
-
-        selectedItem.setColCid(txtCustID.getText());
-        selectedItem.setColTitle(txtTitle.getText());
-        selectedItem.setColName(txtName.getText());
-        selectedItem.setColDob(txtDob.getText());
-        selectedItem.setColSalary(txtSalary.getText());
-        selectedItem.setColAddress(txtAddress.getText());
-        selectedItem.setColCity(txtCity.getText());
-        selectedItem.setColProvince(txtProvince.getText());
-        selectedItem.setColPCode(txtPostalCode.getText());
-
-        tblCustomer.refresh();
-
-        txtCustID.setText("");
-        txtTitle.setText("");
-        txtName.setText("");
-        txtDob.setText("");
-        txtSalary.setText("");
-        txtAddress.setText("");
-        txtCity.setText("");
-        txtProvince.setText("");
-        txtPostalCode.setText("");
-    }
-    public void actionDelete(ActionEvent actionEvent) {
-        CustomerDTO selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
-        CustomerDTO.remove(selectedItem);
-        tblCustomer.refresh();
-
-        txtCustID.setText("");
-        txtTitle.setText("");
-        txtName.setText("");
-        txtDob.setText("");
-        txtSalary.setText("");
-        txtAddress.setText("");
-        txtCity.setText("");
-        txtProvince.setText("");
-        txtPostalCode.setText("");
+    public void actionReload(ActionEvent event) {
+        loadCustomers();
+        clearFields();
     }
 
-    public void actionClear(ActionEvent actionEvent) {
-        txtCustID.setText("");
-        txtTitle.setText("");
-        txtName.setText("");
-        txtDob.setText("");
-        txtSalary.setText("");
-        txtAddress.setText("");
-        txtCity.setText("");
-        txtProvince.setText("");
-        txtPostalCode.setText("");
+    public void actionAdd(ActionEvent event) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)");
+
+            ps.setString(1, txtCustID.getText());
+            ps.setString(2, txtTitle.getText());
+            ps.setString(3, txtName.getText());
+            ps.setString(4, txtDob.getText());
+            ps.setString(5, txtSalary.getText());
+            ps.setString(6, txtAddress.getText());
+            ps.setString(7, txtCity.getText());
+            ps.setString(8, txtProvince.getText());
+            ps.setString(9, txtPostalCode.getText());
+
+            ps.executeUpdate();
+            connection.close();
+            loadCustomers();
+            clearFields();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actionUpdate(ActionEvent event) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+
+            PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?");
+
+            ps.setString(1, txtCustID.getText());
+            ps.setString(2, txtTitle.getText());
+            ps.setString(3, txtName.getText());
+            ps.setString(4, txtDob.getText());
+            ps.setString(5, txtSalary.getText());
+            ps.setString(6, txtAddress.getText());
+            ps.setString(7, txtCity.getText());
+            ps.setString(8, txtProvince.getText());
+            ps.setString(9, txtPostalCode.getText());
+
+            ps.executeUpdate();
+            connection.close();
+            loadCustomers();
+            clearFields();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actionDelete(ActionEvent event) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID=?");
+            ps.setString(1, txtCustID.getText());
+
+            ps.executeUpdate();
+            connection.close();
+            loadCustomers();
+            clearFields();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void actionClear(ActionEvent event) {
+        clearFields();
+    }
+
+    private void clearFields() {
+        txtCustID.clear();
+        txtTitle.clear();
+        txtName.clear();
+        txtDob.clear();
+        txtSalary.clear();
+        txtAddress.clear();
+        txtCity.clear();
+        txtProvince.clear();
+        txtPostalCode.clear();
     }
 }
