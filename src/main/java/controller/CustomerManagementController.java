@@ -81,7 +81,6 @@ public class CustomerManagementController implements Initializable {
                 );
                 CustomerDTOS.add(customerinfoDTO);
             }
-
             tblCustomer.setItems(CustomerDTOS);
             connection.close();
 
@@ -100,6 +99,7 @@ public class CustomerManagementController implements Initializable {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
 
             PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)");
+
             ps.setString(1, txtCustID.getText());
             ps.setString(2, txtTitle.getText());
             ps.setString(3, txtName.getText());
@@ -124,18 +124,17 @@ public class CustomerManagementController implements Initializable {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
 
-            PreparedStatement ps = connection.prepareStatement(
-                    "UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?"
-            );
-            ps.setString(1, txtTitle.getText());
-            ps.setString(2, txtName.getText());
-            ps.setString(3, txtDob.getText());
-            ps.setString(4, txtSalary.getText());
-            ps.setString(5, txtAddress.getText());
-            ps.setString(6, txtCity.getText());
-            ps.setString(7, txtProvince.getText());
-            ps.setString(8, txtPostalCode.getText());
-            ps.setString(9, txtCustID.getText());
+            PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?");
+
+            ps.setString(1, txtCustID.getText());
+            ps.setString(2, txtTitle.getText());
+            ps.setString(3, txtName.getText());
+            ps.setString(4, txtDob.getText());
+            ps.setString(5, txtSalary.getText());
+            ps.setString(6, txtAddress.getText());
+            ps.setString(7, txtCity.getText());
+            ps.setString(8, txtProvince.getText());
+            ps.setString(9, txtPostalCode.getText());
 
             ps.executeUpdate();
             connection.close();
