@@ -17,21 +17,60 @@ import java.util.ResourceBundle;
 public class EmployeeManagementController implements Initializable {
 
     @FXML
-    private Button btnAdd, btnClear, btnDelete, btnReload, btnUpdate;
-
+    private Button btnAdd;
     @FXML
-    private TableColumn<?, ?> colID, colName, colNic, colDob, colPosition, colSalary, colContact, colAddress, colJoinedDate, colStatus;
-
+    private Button btnClear;
+    @FXML
+    private Button btnDelete;
+    @FXML
+    private Button btnReload;
+    @FXML
+    private Button btnUpdate;
+    @FXML
+    private TableColumn<?, ?> colID;
+    @FXML
+    private TableColumn<?, ?> colName;
+    @FXML
+    private TableColumn<?, ?> colNic;
+    @FXML
+    private TableColumn<?, ?> colDob;
+    @FXML
+    private TableColumn<?, ?> colPosition;
+    @FXML
+    private TableColumn<?, ?> colSalary;
+    @FXML
+    private TableColumn<?, ?> colContact;
+    @FXML
+    private TableColumn<?, ?> colAddress;
+    @FXML
+    private TableColumn<?, ?> colJoinedDate;
+    @FXML
+    private TableColumn<?, ?> colStatus;
     @FXML
     private TableView<EmployeeDTO> tblEmployee;
-
     @FXML
-    private TextField txtEmployeeId, txtName, txtNic, txtPosition, txtSalary, txtContact, txtAddress, txtStatus;
-
+    private TextField txtEmployeeId;
     @FXML
-    private DatePicker dpDob, dpJoinedDate;
+    private TextField txtName;
+    @FXML
+    private TextField txtNic;
+    @FXML
+    private TextField txtPosition;
+    @FXML
+    private TextField txtSalary;
+    @FXML
+    private TextField txtContact;
+    @FXML
+    private TextField txtAddress;
+    @FXML
+    private TextField txtStatus;
+    @FXML
+    private DatePicker dpDob;
+    @FXML
+    private DatePicker dpJoinedDate;
 
-    private ObservableList<EmployeeDTO> employeeList = FXCollections.observableArrayList();
+
+    ObservableList<EmployeeDTO> employeeList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,9 +105,10 @@ public class EmployeeManagementController implements Initializable {
     }
 
     private void loadEmployees() {
-        ObservableList<EmployeeDTO> employees = FXCollections.observableArrayList();
+        ObservableList<EmployeeDTO> employeesDTOS = FXCollections.observableArrayList();
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234")) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM Employee");
             ResultSet rs = ps.executeQuery();
 
@@ -85,10 +125,10 @@ public class EmployeeManagementController implements Initializable {
                         rs.getString("JoinedDate"),
                         rs.getString("Status")
                 );
-                employees.add(employee);
+                employeesDTOS.add(employee);
             }
 
-            tblEmployee.setItems(employees);
+            tblEmployee.setItems(employeesDTOS);
 
         } catch (SQLException e) {
             e.printStackTrace();
