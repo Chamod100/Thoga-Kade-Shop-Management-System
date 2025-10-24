@@ -18,15 +18,53 @@ public class CustomerManagementController implements Initializable {
     @FXML
     private TableColumn<?, ?> ColPCode;
     @FXML
-    private Button btnAdd, btnClear, btnDelete, btnReload, btnUpdate;
+    private Button btnAdd;
     @FXML
-    private TableColumn<?, ?> colAddress, colCid, colCity, colDob, colName, colProvince, colSalary, colTitle;
+    private Button btnClear;
+    @FXML
+    private Button btnDelete;
+    @FXML
+    private Button btnReload;
+    @FXML
+    private Button btnUpdate;
+    @FXML
+    private TableColumn<?, ?> colAddress;
+    @FXML
+    private TableColumn<?, ?> colCid;
+    @FXML
+    private TableColumn<?, ?> colCity;
+    @FXML
+    private TableColumn<?, ?> colDob;
+    @FXML
+    private TableColumn<?, ?> colName;
+    @FXML
+    private TableColumn<?, ?> colProvince;
+    @FXML
+    private TableColumn<?, ?> colSalary;
+    @FXML
+    private TableColumn<?, ?> colTitle;
     @FXML
     private TableView<CustomerDTO> tblCustomer;
     @FXML
-    private TextField txtAddress, txtCity, txtCustID, txtDob, txtName, txtPostalCode, txtProvince, txtSalary, txtTitle;
+    private TextField txtAddress;
+    @FXML
+    private TextField txtCity;
+    @FXML
+    private TextField txtCustID;
+    @FXML
+    private TextField txtDob;
+    @FXML
+    private TextField txtName;
+    @FXML
+    private TextField txtPostalCode;
+    @FXML
+    private TextField txtProvince;
+    @FXML
+    private TextField txtSalary;
+    @FXML
+    private TextField txtTitle;
 
-    private ObservableList<CustomerDTO> customerList = FXCollections.observableArrayList();
+    private final ObservableList<CustomerDTO> customerList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,16 +97,14 @@ public class CustomerManagementController implements Initializable {
     }
 
     private void loadCustomers() {
-        ObservableList<CustomerDTO> CustomerDTOS = FXCollections.observableArrayList();
+        customerList.clear();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                CustomerDTO customerinfoDTO = new CustomerDTO(
+                CustomerDTO customer = new CustomerDTO(
                         resultSet.getString("CustomerID"),
                         resultSet.getString("Title"),
                         resultSet.getString("Name"),
@@ -79,52 +115,24 @@ public class CustomerManagementController implements Initializable {
                         resultSet.getString("Province"),
                         resultSet.getString("PostalCode")
                 );
-                CustomerDTOS.add(customerinfoDTO);
+                customerList.add(customer);
             }
-            tblCustomer.setItems(CustomerDTOS);
-            connection.close();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            showError("Error loading customers", e.getMessage());
         }
     }
 
-    public void actionReload(ActionEvent event) {
+    @FXML
+    private void actionReload(ActionEvent event) {
         loadCustomers();
         clearFields();
     }
 
-    public void actionAdd(ActionEvent event) {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)");
-
-            ps.setString(1, txtCustID.getText());
-            ps.setString(2, txtTitle.getText());
-            ps.setString(3, txtName.getText());
-            ps.setString(4, txtDob.getText());
-            ps.setString(5, txtSalary.getText());
-            ps.setString(6, txtAddress.getText());
-            ps.setString(7, txtCity.getText());
-            ps.setString(8, txtProvince.getText());
-            ps.setString(9, txtPostalCode.getText());
-
-            ps.executeUpdate();
-            connection.close();
-            loadCustomers();
-            clearFields();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void actionUpdate(ActionEvent event) {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-
-            PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?");
+    @FXML
+    private void actionAdd(ActionEvent event) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+             PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)")) {
 
             ps.setString(1, txtCustID.getText());
             ps.setString(2, txtTitle.getText());
@@ -137,33 +145,55 @@ public class CustomerManagementController implements Initializable {
             ps.setString(9, txtPostalCode.getText());
 
             ps.executeUpdate();
-            connection.close();
             loadCustomers();
             clearFields();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            showError("Error adding customer", e.getMessage());
         }
     }
 
-    public void actionDelete(ActionEvent event) {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+    @FXML
+    private void actionUpdate(ActionEvent event) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+             PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?")) {
 
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID=?");
-            ps.setString(1, txtCustID.getText());
+            ps.setString(1, txtTitle.getText());
+            ps.setString(2, txtName.getText());
+            ps.setString(3, txtDob.getText());
+            ps.setString(4, txtSalary.getText());
+            ps.setString(5, txtAddress.getText());
+            ps.setString(6, txtCity.getText());
+            ps.setString(7, txtProvince.getText());
+            ps.setString(8, txtPostalCode.getText());
+            ps.setString(9, txtCustID.getText());
 
             ps.executeUpdate();
-            connection.close();
             loadCustomers();
             clearFields();
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            showError("Error updating customer", e.getMessage());
         }
     }
 
-    public void actionClear(ActionEvent event) {
+    @FXML
+    private void actionDelete(ActionEvent event) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+             PreparedStatement ps = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID=?")) {
+
+            ps.setString(1, txtCustID.getText());
+            ps.executeUpdate();
+            loadCustomers();
+            clearFields();
+
+        } catch (SQLException e) {
+            showError("Error deleting customer", e.getMessage());
+        }
+    }
+
+    @FXML
+    private void actionClear(ActionEvent event) {
         clearFields();
     }
 
@@ -177,5 +207,13 @@ public class CustomerManagementController implements Initializable {
         txtCity.clear();
         txtProvince.clear();
         txtPostalCode.clear();
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
