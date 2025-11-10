@@ -23,8 +23,6 @@ public class EmployeeManagementController implements Initializable {
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnReload;
-    @FXML
     private Button btnUpdate;
     @FXML
     private TableColumn<?, ?> colID;
@@ -198,11 +196,6 @@ public class EmployeeManagementController implements Initializable {
             e.printStackTrace();
 
         }
-    }
-
-    public void actionReload(ActionEvent event) {
-        loadEmployees();
-        clearFields();
     }
 
     public void actionClear(ActionEvent event) {

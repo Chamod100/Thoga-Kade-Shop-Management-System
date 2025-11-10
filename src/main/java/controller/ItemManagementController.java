@@ -22,8 +22,6 @@ public class ItemManagementController implements Initializable {
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnReload;
-    @FXML
     private Button btnUpdate;
     @FXML
     private TableColumn<?, ?> colDescription;
@@ -120,8 +118,7 @@ public class ItemManagementController implements Initializable {
     @FXML
     public void actionUpdate(ActionEvent event) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-             PreparedStatement ps = connection.prepareStatement(
-                     "UPDATE Item SET Description=?, Category=?, QtyOnHand=?, UnitPrice=? WHERE ItemCode=?")) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE Item SET Description=?, Category=?, QtyOnHand=?, UnitPrice=? WHERE ItemCode=?")) {
 
             ps.setString(1, txtDescription.getText());
             ps.setString(2, txtCategory.getText());
@@ -151,12 +148,6 @@ public class ItemManagementController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    public void actionReload(ActionEvent event) {
-        loadItems();
-        clearFields();
     }
 
     @FXML

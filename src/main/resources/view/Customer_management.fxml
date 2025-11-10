@@ -50,6 +50,5 @@
             <Button fx:id="btnDelete" onAction="#actionDelete" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #c53030; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Delete" />
             <Button fx:id="btnClear" onAction="#actionClear" prefHeight="30.0" prefWidth="74.0" style="-fx-background-color: transparent; -fx-border-color: #405066; -fx-text-fill: white; -fx-border-radius: 6; -fx-font-weight: bold;" text="Clear" />
         </HBox>
-      <Button fx:id="btnReload" layoutX="907.0" layoutY="554.0" onAction="#actionReload" prefHeight="28.0" prefWidth="74.0" style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-background-radius: 6; -fx-font-weight: bold;" text="Reload" />
     </children>
 </AnchorPane>

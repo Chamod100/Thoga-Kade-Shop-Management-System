@@ -14,7 +14,6 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class CustomerManagementController implements Initializable {
-
     @FXML
     private TableColumn<?, ?> ColPCode;
     @FXML
@@ -23,8 +22,6 @@ public class CustomerManagementController implements Initializable {
     private Button btnClear;
     @FXML
     private Button btnDelete;
-    @FXML
-    private Button btnReload;
     @FXML
     private Button btnUpdate;
     @FXML
@@ -63,7 +60,6 @@ public class CustomerManagementController implements Initializable {
     private TextField txtSalary;
     @FXML
     private TextField txtTitle;
-
     private final ObservableList<CustomerDTO> customerList = FXCollections.observableArrayList();
 
     @Override
@@ -77,10 +73,8 @@ public class CustomerManagementController implements Initializable {
         colCity.setCellValueFactory(new PropertyValueFactory<>("colCity"));
         colProvince.setCellValueFactory(new PropertyValueFactory<>("colProvince"));
         ColPCode.setCellValueFactory(new PropertyValueFactory<>("colPCode"));
-
         tblCustomer.setItems(customerList);
         loadCustomers();
-
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 txtCustID.setText(newValue.getColCid());
@@ -98,42 +92,22 @@ public class CustomerManagementController implements Initializable {
 
     private void loadCustomers() {
         customerList.clear();
-
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Customer");
+            ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                CustomerDTO customer = new CustomerDTO(
-                        resultSet.getString("CustomerID"),
-                        resultSet.getString("Title"),
-                        resultSet.getString("Name"),
-                        resultSet.getString("DateOfBirth"),
-                        resultSet.getString("Salary"),
-                        resultSet.getString("Address"),
-                        resultSet.getString("City"),
-                        resultSet.getString("Province"),
-                        resultSet.getString("PostalCode")
-                );
+                CustomerDTO customer = new CustomerDTO(resultSet.getString("CustomerID"), resultSet.getString("Title"), resultSet.getString("Name"), resultSet.getString("DateOfBirth"), resultSet.getString("Salary"), resultSet.getString("Address"), resultSet.getString("City"), resultSet.getString("Province"), resultSet.getString("PostalCode"));
                 customerList.add(customer);
             }
-
         } catch (SQLException e) {
             showError("Error loading customers", e.getMessage());
         }
     }
 
     @FXML
-    private void actionReload(ActionEvent event) {
-        loadCustomers();
-        clearFields();
-    }
-
-    @FXML
     private void actionAdd(ActionEvent event) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-             PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)")) {
-
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234"); PreparedStatement ps = connection.prepareStatement("INSERT INTO Customer VALUES (?,?,?,?,?,?,?,?,?)")) {
             ps.setString(1, txtCustID.getText());
             ps.setString(2, txtTitle.getText());
             ps.setString(3, txtName.getText());
@@ -143,11 +117,9 @@ public class CustomerManagementController implements Initializable {
             ps.setString(7, txtCity.getText());
             ps.setString(8, txtProvince.getText());
             ps.setString(9, txtPostalCode.getText());
-
             ps.executeUpdate();
             loadCustomers();
             clearFields();
-
         } catch (SQLException e) {
             showError("Error adding customer", e.getMessage());
         }
@@ -155,9 +127,7 @@ public class CustomerManagementController implements Initializable {
 
     @FXML
     private void actionUpdate(ActionEvent event) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-             PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?")) {
-
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234"); PreparedStatement ps = connection.prepareStatement("UPDATE Customer SET Title=?, Name=?, DateOfBirth=?, Salary=?, Address=?, City=?, Province=?, PostalCode=? WHERE CustomerID=?")) {
             ps.setString(1, txtTitle.getText());
             ps.setString(2, txtName.getText());
             ps.setString(3, txtDob.getText());
@@ -167,11 +137,9 @@ public class CustomerManagementController implements Initializable {
             ps.setString(7, txtProvince.getText());
             ps.setString(8, txtPostalCode.getText());
             ps.setString(9, txtCustID.getText());
-
             ps.executeUpdate();
             loadCustomers();
             clearFields();
-
         } catch (SQLException e) {
             showError("Error updating customer", e.getMessage());
         }
@@ -179,14 +147,11 @@ public class CustomerManagementController implements Initializable {
 
     @FXML
     private void actionDelete(ActionEvent event) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-             PreparedStatement ps = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID=?")) {
-
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234"); PreparedStatement ps = connection.prepareStatement("DELETE FROM Customer WHERE CustomerID=?")) {
             ps.setString(1, txtCustID.getText());
             ps.executeUpdate();
             loadCustomers();
             clearFields();
-
         } catch (SQLException e) {
             showError("Error deleting customer", e.getMessage());
         }
