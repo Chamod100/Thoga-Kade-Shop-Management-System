@@ -22,8 +22,6 @@ public class SupplierManagementController implements Initializable {
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnReload;
-    @FXML
     private Button btnUpdate;
     @FXML
     private TableColumn<?, ?> colAddress;
@@ -152,8 +150,7 @@ public class SupplierManagementController implements Initializable {
     @FXML
     public void actionUpdate(ActionEvent event) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Togakademanagement", "root", "1234");
-             PreparedStatement ps = connection.prepareStatement(
-                     "UPDATE Supplier SET Name=?, CompanyName=?, Address=?, City=?, Province=?, PostalCode=?, Phone=?, Email=? WHERE SupplierID=?")) {
+             PreparedStatement ps = connection.prepareStatement("UPDATE Supplier SET Name=?, CompanyName=?, Address=?, City=?, Province=?, PostalCode=?, Phone=?, Email=? WHERE SupplierID=?")) {
 
             ps.setString(1, txtName.getText());
             ps.setString(2, txtCompany.getText());
@@ -187,12 +184,6 @@ public class SupplierManagementController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    public void actionReload(ActionEvent event) {
-        loadSuppliers();
-        clearFields();
     }
 
     @FXML
